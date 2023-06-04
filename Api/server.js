@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 app.get("/api/demo", (req, res) => {
-  /*
+
   const demoData = {
     message: "Hello, World!",
     timestamp: new Date().toISOString(),
@@ -120,7 +120,7 @@ app.get("/api/demo", (req, res) => {
       ],
     },
   };
-  */
+
 //  console.log("sachin->req", req)
   https
     .get("https://github.com",(response) => {
@@ -132,7 +132,7 @@ app.get("/api/demo", (req, res) => {
         });
         response.on("end", () => {
           // console.log(data)
-          res.send(JSON.stringify("sachin"));
+          res.send(demoData);
         });
       }
     )

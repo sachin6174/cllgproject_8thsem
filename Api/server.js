@@ -1,148 +1,33 @@
-const express = require("express");
-const https = require("https");
+const express = require('express');
+const https = require('https');
+
 const app = express();
 const port = 3000;
+//https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.71131414857127&lng=76.73191398382187&page_type=DESKTOP_WEB_LISTING
+// https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.71131414857127&lng=76.73191398382187&page_type=DESKTOP_WEB_LISTING
 
-app.get("/api/demo", (req, res) => {
+app.get('/', (req, res) => {
+  const swiggyUrl = 'https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.71131414857127&lng=76.73191398382187&offset=15&sortBy=RELEVANCE&pageType=SEE_ALL&page_type=DESKTOP_SEE_ALL_LISTING';
 
-  const demoData = {
-    message: "Hello, World!",
-    timestamp: new Date().toISOString(),
+  https.get(swiggyUrl, (response) => {
+    let data = '';
 
-    config: {
-      logo: {
-        type: "image",
-        src: "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-        alt: "Swiggy Logo",
-        style: {
-          width: "200px",
-          height: "auto",
-        },
-      },
-      header: {
-        type: "heading",
-        text: "Welcome to Swiggy",
-        size: "large",
-      },
-      search: {
-        type: "input",
-        placeholder: "Enter your location",
-      },
-      categories: {
-        type: "menu",
-        items: ["Pizza", "Burger", "Sushi", "Indian", "Chinese"],
-      },
-      restaurants: [
-        {
-          name: "Pizza Paradise",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Pizza",
-          rating: 4.5,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-        {
-          name: "Burger Haven",
-          image:
-            "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
-          cuisine: "Burger",
-          rating: 4.2,
-        },
-      ],
-    },
-  };
-
-//  console.log("sachin->req", req)
-  https
-    .get("https://github.com",(response) => {
-      console.log("sachin->req", response);
-        let data = "";
-        response.on("data", (chunk) => {
-          data += chunk;
-           console.log(chunk);
-        });
-        response.on("end", () => {
-          // console.log(data)
-          res.send(demoData);
-        });
-      }
-    )
-    .on("error", (error) => {
-      console.error(error);
-      res.status(500).send("Error occurred");
+    response.on('data', (chunk) => {
+      data += chunk;
     });
-  // res.json(demoData);
+
+    response.on('end', () => {
+      // Log the data in the console
+      console.log(data);
+
+      res.send('Data logged in console!');
+    });
+  }).on('error', (error) => {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  });
 });
 
 app.listen(port, () => {
-  console.log(`API server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });

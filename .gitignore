@@ -2,3 +2,7 @@ Api/node_modules
 note_app_using_react_components/.parcel-cache
 note_app_using_react_components/dist
 note_app_using_react_components/node_modules
+Api/node_modules
+react-router-compete-app/.parcel-cache
+react-router-compete-app/dist
+react-router-compete-app/node_modules

@@ -6,3 +6,4 @@ Api/node_modules
 react-router-compete-app/.parcel-cache
 react-router-compete-app/dist
 react-router-compete-app/node_modules
+*.doc
